@@ -1,0 +1,2 @@
+# NOTES
+new things learned
