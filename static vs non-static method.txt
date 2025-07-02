@@ -14,8 +14,8 @@ public int getRoll()	--> Called via object, returns int
 🎯examples-----
 
 1st - 
-```
-import java.util.*;
+
+`import java.util.*;
 
 class Book {
     String title;
@@ -122,8 +122,8 @@ class ques1 {
             arr[i].show();
         }
     }
-}
-```
+}`
+
 In this code, we didn't use static in the method public void show().
 So, do we need to make an object first to call it?
 YES, you need an object.
