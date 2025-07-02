@@ -1,0 +1,139 @@
+Static or Not: static
+
+static means the method belongs to the class, not to a specific object.
+If you write a static method, you can call it without creating an object of that class.
+
+public static void main(String[] args) -->Entry point of the program, no return
+
+public static Book searchByTitle(...) -->	Can be called without an object, returns a Book
+
+public int getRoll()	--> Called via object, returns int 
+
+
+
+🎯examples-----
+
+1st - 
+import java.util.*;
+
+class Book {
+    String title;
+    String author;
+    double price;
+
+    public void show() {
+        System.out.println("title ->" + title);
+        System.out.println("author ->" + author);
+        System.out.println("price ->" + price);
+    }
+}
+
+class ques3 {
+    public static Book searchByTitle(Book[] arr, String searchTitle) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i].title.equalsIgnoreCase(searchTitle)) {
+                return arr[i];
+            }
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+        Book[] arr = new Book[n];
+
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = new Book();
+            scn.nextLine();
+            arr[i].title = scn.nextLine();
+            arr[i].author = scn.nextLine();
+            arr[i].price = scn.nextDouble();
+        }
+
+        scn.nextLine();
+        String searchTitle = scn.nextLine();
+        Book result = searchByTitle(arr, searchTitle);
+
+        if (result != null) {
+            result.show();
+        } else {
+            System.out.println("Book not found");
+        }
+    }
+}
+
+🔁 So, Why public static Book searchByTitle(...)?
+public: so it can be accessed from anywhere
+
+static: so we can call it from main() directly without creating an object
+
+Book: it returns a Book object if found, or null if not found
+
+## Yes, you can write public Book searchByTitle(...) instead of public static Book searchByTitle(...), but there's an important difference:
+
+1. public static Book searchByTitle(...)
+Belongs to the class
+Can be called directly from main() without creating an object
+code....
+Book result = searchByTitle(arr, title); // This works directly in main()
+
+2. public Book searchByTitle(...)
+Belongs to an object (instance)
+You must create an object of the class first:
+code....
+ques3 obj = new ques3();
+Book result = obj.searchByTitle(arr, title);
+
+2nd -
+
+in this code 
+import java.util.*;
+
+class student {
+    String name;
+    int roll;
+    double marks;
+    public void show() {
+        System.out.println("name ->" + name);
+        System.out.println("roll ->" + roll);
+        System.out.println("mark ->" + marks);
+    }
+}
+
+class ques1 {
+    public static void main(String[] args) {
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+        student[] arr = new student[n];
+
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = new student();
+            System.out.println("enter details");
+            scn.nextLine();
+            arr[i].name = scn.nextLine();
+            arr[i].roll = scn.nextInt();
+            arr[i].marks = scn.nextDouble();
+        }
+
+        System.out.println("display");
+        for (int i = 0; i < arr.length; i++) {
+            arr[i].show();
+        }
+    }
+}
+
+In this code, we didn't use static in the method public void show().
+So, do we need to make an object first to call it?
+YES, you need an object.
+Because public void show() is a non-static method, it belongs to an object of the student class — not the class itself.
+
+And in your code, that's exactly what you did here:
+arr[i] = new student();     // creating a student object
+arr[i].show();              // calling show() using that object
+
+------------
+If you had written public static void show()
+Then you could have called it like:
+student.show();  // if it was static
+But that wouldn’t make sense here, because show() prints the values of the current object's name, roll, marks — which are instance variables. Static methods can't access instance data directly.
